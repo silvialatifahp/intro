@@ -1,0 +1,123 @@
+---
+title: "Transformasi Data"
+author: "Muhammad Aswan Syahputra"
+date: "4/9/2019"
+output:
+  html_document: 
+    df_print: default
+    fig_height: 6
+    fig_width: 9
+    highlight: textmate
+    keep_md: yes
+    theme: yeti
+    toc: yes
+    toc_collapsed: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Non-tidy menjadi Tidy dataset
+
+Anda akan menggunakan fungsi `spread` dari paket `tidyr` untuk mengubah memperbaiki dataset 'table2' (juga dari paket `tidyr`). Aktifkanlah paket `tidyr`, lihat dataset 'table2'. Apakah yang membuat dataset tersebut *non-tidy* data? Bukalah dokumentasi fungsi `spread` dengan menjalankan `?nama_fungsi` atau `help(nama_fungsi)`!
+
+```{r}
+library(tidyr)
+table2
+```
+
+Dataset 'table2' dapat diperbaiki dengan menjalankan kode berikut:
+
+```{r}
+table2_tidy <- spread(table2, key = "type", value = "count")
+```
+
+Selanjutnya Anda juga akan memperbaiki dataset 'table4a'. Cetaklah dataset tersebut dan dapatkah Anda menyebutkan alasan mengapa dataset tersebut tidak *tidy* dan *tame*?
+
+```{r}
+table4a # cetak dataset table4a
+```
+
+Dataset 'table4a' dapat diperbaiki dengan menggunakan fungsi `gather` dari `tidyr`. Anda dapat mempelajari fungsi tersebut dengan menjalankan `?gather`.
+
+```{r}
+gather(table4a, key = "year", value = "case", 2:3)
+
+table4a_tidy <- table4a %>% 
+  gather(key = "year", value = "cases", 2:3) # menggunakan tidyverse syntax, pipe %>%
+```
+
+Silakan lakukan hal serupa pada dataset 'table4b' namun dengan menggunakan "population" sebagai isian argumen `value`. Tuliskan juga dengan menggunakan *tidyverse syntax* dan simpan obyek tersebut dengan nama 'table4b_tidy'!
+
+```{r}
+table4b
+
+table4b_tidy <- table4b %>% 
+  gather(key = "year", value = "population", 2:3)
+```
+
+Dataset 'table4a_tidy' dan 'table4b_tidy' tersebut dapat digabungkan menjadi satu dataset. Hal tersebut dapat dilakukan dengan menggunakan fungsi `left_join` dari paket `dplyr` seperti contoh berikut:
+
+```{r}
+library(dplyr) # mengaktifkan paket dplyr
+mydata <- left_join(table4a_tidy, table4b_tidy)
+```
+
+
+## Data Wrangling
+
+Dataset mydata tersebut merupakan subset dataset Tubercolusis yang diolah dari data 'who' dan 'population' (dari paket `tidyr`). Lihatlah ringkasan kedua tersebut dengan menggunakan `glimpse`!
+
+```{r}
+glimpse(who)
+glimpse(population)
+```
+
+Sekarang kita akan membuat versi utuh dari dataset 'mydata' dengan menggunakan data seluruh negara pada dataset 'who' sebagai berikut:
+
+```{r}
+# Menjalankan fungsi satu per satu
+tb1 <- gather(who, key = "key", value = "case", new_sp_m014:newrel_f65)
+tb2 <- select(tb1, country, year, case)
+tb3 <- group_by(tb2, country, year)
+tb4 <- summarise(tb3, cases = sum(case, na.rm = TRUE))
+tb5 <- ungroup(tb4)
+tb6 <- left_join(tb5, population)
+tb7 <- filter(tb6, !is.na(population))
+tb8 <- mutate(tb7, proportion = 100*cases/population)
+
+# Syntax menggunakan pipe %>%
+
+tb_all <- 
+  who %>% 
+  gather(key = "key", value = "case", new_sp_m014:newrel_f65) %>% 
+  select(country, year, case) %>% 
+  group_by(country, year) %>% 
+  summarise(cases = sum(case, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  left_join(population) %>% 
+  filter(!is.na(population)) %>% 
+  mutate(proportion = 100*cases/population)
+```
+
+Dapatkah Anda membuat ringkasan apa saja hal apa saja yang dilakukan pada proses *data wrangling* diatas? (Petunjuk: `?nama_fungsi`)
+
+1. Dataset `who` berisi data jumlah kasus TBC per negara dan tahun. Dataset tersebut tidak *tidy* karena kolom new_sp_m014 hingga newrel_f65 pada dataset `who` mengandung informasi yang sama yaitu data observasi jumlah kasus. Data observasi tersebut harus diubah menjadi baris agar membuatnya menjadi *tidy dataset*. Fungsi `gather()` digunakan untuk mengubah kolom new_sp_m014 hingga newrel_f65 menjadi baris. Judul kolom new_sp_m014 hingga newrel_f65 kemudian disimpan ke dalam kolom baru dengan nama '*year*' serta nilai-nilai pada semua kolom tersebut disimpan pada kolom baru dengan nama '*case*'
+2. Memilih kolom '*country*', '*year*', dan '*case*'
+3. Membuat *grouping* berdasarkan '*country*' dan '*year*'
+4. Menghitung jumlah total kasus berdasarkan *grouping* '*country*' dan '*year*'
+5. Menghilangkan *grouping*
+6. Menggabungkan dataset `population` dengan menggunakan kolom '*country*' dan '*year*' sebagai indeks
+7. Melakukan seleksi baris dengan cara menghapus baris jika ditemukan nilai `NA` pada kolom '*pupulation*'
+8. Menambahkan kolom baru dengan nama '*proportion*' dengan rumus '100 x cases/population'
+
+Cek apakah dataset 'tb8' sama dengan dataset 'tb_all'! Menurut Anda, cara penulisan *syntax* manakah yang lebih mudah digunakan dan dipahami?
+
+```{r}
+identical(tb8, tb_all)
+```
+
