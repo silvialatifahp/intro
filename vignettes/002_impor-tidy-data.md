@@ -85,6 +85,7 @@ evals
 ```
 
 Anda dapat menggunakan fungsi `glimpse` dari paket `dplyr` untuk melihat ringkasan data. tersebut. Isilah '___' dengan jawaban yang tepat untuk melihat ringkasan data `evals`! Ada berapa variable dan observasi pada data `evals` tersebut?
+glimpse hampir sama dengan str 
 
 
 ```r
@@ -332,10 +333,11 @@ library(tidyr)
 ```
 
 Dari dataset berikut ini, manakah yang termasuk Tidy Data? Dapatkah Anda menjelaskan alasan mengapa beberapa dataset berikut tidak *tidy*?
+tidy mengurutkan berdasarkan masing-masing variabel/kolom atau bisa dikatakan untuk merapikan data yang ada sesuai dengan observasi ataupun cooperations.
 
 
 ```r
-table1
+table1 #tidy
 ```
 
 ```
@@ -351,7 +353,7 @@ table1
 ```
 
 ```r
-table2
+table2 #tidak tidy
 ```
 
 ```
@@ -373,7 +375,7 @@ table2
 ```
 
 ```r
-table3
+table3 #tidak sesuai dengan data yang seharusnya. dimana rate seharusnya tidak chr
 ```
 
 ```
@@ -389,7 +391,7 @@ table3
 ```
 
 ```r
-table4a
+table4a #kolom tidak boleh dengan numeric
 ```
 
 ```

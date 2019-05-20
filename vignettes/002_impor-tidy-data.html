@@ -1623,7 +1623,7 @@ div.tocify {
 ## #   bty_f1lower &lt;dbl&gt;, bty_f1upper &lt;dbl&gt;, bty_f2upper &lt;dbl&gt;,
 ## #   bty_m1lower &lt;dbl&gt;, bty_m1upper &lt;dbl&gt;, bty_m2upper &lt;dbl&gt;,
 ## #   bty_avg &lt;dbl&gt;, pic_outfit &lt;chr&gt;, pic_color &lt;chr&gt;</code></pre>
-<p>Anda dapat menggunakan fungsi <code>glimpse</code> dari paket <code>dplyr</code> untuk melihat ringkasan data. tersebut. Isilah ’___’ dengan jawaban yang tepat untuk melihat ringkasan data <code>evals</code>! Ada berapa variable dan observasi pada data <code>evals</code> tersebut?</p>
+<p>Anda dapat menggunakan fungsi <code>glimpse</code> dari paket <code>dplyr</code> untuk melihat ringkasan data. tersebut. Isilah ’___’ dengan jawaban yang tepat untuk melihat ringkasan data <code>evals</code>! Ada berapa variable dan observasi pada data <code>evals</code> tersebut? glimpse hampir sama dengan str</p>
 <pre class="r"><code>library(dplyr)</code></pre>
 <pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.3</code></pre>
 <pre><code>## 
@@ -1777,8 +1777,8 @@ div.tocify {
 <p>Demi memahami konsep Tidy Data, kita akan menggunakan dataset yang tersedia di paket <code>tidyr</code>. Aktifkanlah paket <code>tidyr</code> tersebut!</p>
 <pre class="r"><code>library(tidyr)</code></pre>
 <pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.3</code></pre>
-<p>Dari dataset berikut ini, manakah yang termasuk Tidy Data? Dapatkah Anda menjelaskan alasan mengapa beberapa dataset berikut tidak <em>tidy</em>?</p>
-<pre class="r"><code>table1</code></pre>
+<p>Dari dataset berikut ini, manakah yang termasuk Tidy Data? Dapatkah Anda menjelaskan alasan mengapa beberapa dataset berikut tidak <em>tidy</em>? tidy mengurutkan berdasarkan masing-masing variabel/kolom atau bisa dikatakan untuk merapikan data yang ada sesuai dengan observasi ataupun cooperations.</p>
+<pre class="r"><code>table1 #tidy</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -1788,7 +1788,7 @@ div.tocify {
 ## 4 Brazil       2000  80488  174504898
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
-<pre class="r"><code>table2</code></pre>
+<pre class="r"><code>table2 #tidak tidy</code></pre>
 <pre><code>## # A tibble: 12 x 4
 ##    country      year type            count
 ##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
@@ -1804,7 +1804,7 @@ div.tocify {
 ## 10 China        1999 population 1272915272
 ## 11 China        2000 cases          213766
 ## 12 China        2000 population 1280428583</code></pre>
-<pre class="r"><code>table3</code></pre>
+<pre class="r"><code>table3 #tidak sesuai dengan data yang seharusnya. dimana rate seharusnya tidak chr</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year rate             
 ## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
@@ -1814,7 +1814,7 @@ div.tocify {
 ## 4 Brazil       2000 80488/174504898  
 ## 5 China        1999 212258/1272915272
 ## 6 China        2000 213766/1280428583</code></pre>
-<pre class="r"><code>table4a</code></pre>
+<pre class="r"><code>table4a #kolom tidak boleh dengan numeric</code></pre>
 <pre><code>## # A tibble: 3 x 3
 ##   country     `1999` `2000`
 ## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
