@@ -28,6 +28,7 @@ Ini merupakan dokumen R Markdown yang dapat digunakan untuk membuat dokumen HTML
 Kode R dapat dimasukan ke dalam dokumen R Markdown dengan menggunakan *chunck* yang dimulai dengan penanda  tiga *backtick* '```' (dibuat dengan klik tombol Insert - R). Contoh cara untuk penulisan kode R kedalam dokumen R Markdown adalah sebagai berikut:
 
 ```{r}
+mtcars
 head(mtcars) # melihat 6 baris pertama dari data mtcars, mtcars adalah data bawaan yang tersedia di R
 ```
 
@@ -67,10 +68,11 @@ huruf_vokal # mencetak objek data dengan nama 'huruf_vokal' pada konsol
 Jenis dari data dapat diketahui dengan menggunakan fungsi `typeof()`. Dapatkah Anda mengetahui jenis data dari 'huruf_vokal' diatas? Bagaimana jika Anda membuat objek data dengan menggunakan fungsi `c()` namun jenis elemennya berbeda-beda? Dapatkah Anda menjelaskannya? Isilah '___' dengan jawaban yang sesuai!
 
 ```{r}
-___(huruf_vokal)
+typeof(huruf_vokal)
 
 beragam <- c(2.7, "berbeda", TRUE, 4L) # 2.7 bertipe double, "berbeda" bertipe character, TRUE bertipe logical, 4L bertipe integer
-typeof(___) # cek tipe dari objek data dengan nama 'beragam'
+typeof(beragam) # cek tipe dari objek data dengan nama 'beragam'
+beragam
 ```
 
 Struktur data dua dimensi merupakan yang paling banyak digunakan di R, yaitu matrix dan dataframe yang dapat dibuat dengan menggunakan fungsi `matrix()` dan `data.frame()`. Kedua data tersebut umumnya jarang dibuat secara langsung di R, notabene berasal dari berkas luar atau merupakan hasil dari penggunaan fungsi. Prinsipnya suatu dataframe merupakan gabungan dari beberapa data satu dimensi dengan jumlah yang sama, umumnya adalah *atomic vectors*. Menurut Anda, dapatkah suatu frame tersusun atas beberapa *list* dengan jumlah yang sama?
@@ -82,30 +84,30 @@ Fungsi memiliki tugas utama untuk mengolah suatu *input* menjadi *output*. Anda 
 
 ```{r}
 iris # mencetak data di konsol
-dim(iris) # ___
-str(iris) # ___
-colnames(iris) # ___
-head(iris) # ___
-head(iris, 10) # ___
-tail(iris) # ___
-tail(iris, 10) # ___
-summary(iris) # ___
+dim(iris) # mengetahui berapa banyak baris dan kolom pada data
+str(iris) # structure type data (kedalam data numeric atau factor)
+colnames(iris) # mengeluarkan hanya nama variabel kolom
+head(iris) # mengeluarkan data iris secara 6 baris pertama
+head(iris, 10) # mengeluarkan data hanya 10 baris
+tail(iris) # mengeluarkan data iris 6 terakhir
+tail(iris, 10) # mengeluarkan data iris 10 terakhir dari bawah
+summary(iris) # mengeluarkan median, mean, 3rd quarter pada masing2 kolom
 iris[1, ] # subset data pada baris 1
-iris[c(1, 6, 12),] # ___
-iris[ ,2] # subset atau ekstrak data pada kolom 2
-iris[2,2] # ___
+iris[c(1, 6, 12),] # menheluarkan subset data pada baris 1, 6, dan 12
+iris[ ,2, drop = FALSE] # subset atau ekstrak data pada kolom 2
+iris[2,2] # mengeluarkan data pada baris 2 dan kolom 2
 iris$Sepal.Length # ekstrak data pada kolom 'Sepal.Length'
-class(iris$Species) # ___
-length(iris$Petal.Width) # ___
-levels(iris$Species) # ___
-length(levels(iris$Species)) # ___
-unique(iris$Species) # ___
+class(iris$Species) # mengetahui jenis atau type data
+length(iris$Petal.Width) # panjang atau banyaknya data 
+levels(iris$Species) # banyak jenis species pada data iris
+length(levels(iris$Species)) #b banyak data secara numerik
+unique(iris$Species) # factor
 length(unique(iris$Species)) # ___
-mean(iris$Sepal.Length) # ___
+mean(iris$Sepal.Length) # rata2
 sd(iris$Sepal.Length) # ___
-median(iris$Sepal.Width) # ___
+median(iris$Sepal.Width) # nilai tengah pada variabel sepal.width
 sum(iris$Petal.Length) # ___
-plot(iris) # ___
+plot(iris) # mengeluarkan plottingan atau persebaran 
 cor(iris[, -5]) # ___
 write.csv(iris, file = "iris.csv", row.names = FALSE) # ___
 ```
