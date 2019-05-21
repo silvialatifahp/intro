@@ -3,7 +3,9 @@ title: "Impor Data dan Konsep Tidy Data"
 author: "Muhammad Aswan Syahputra"
 date: "4/9/2019"
 output:
-  html_document: 
+  word_document:
+    toc: yes
+  html_document:
     df_print: default
     fig_height: 6
     fig_width: 9
@@ -13,7 +15,7 @@ output:
     toc: yes
     toc_collapsed: yes
     toc_float: yes
-editor_options: 
+editor_options:
   chunk_output_type: inline
 ---
 
